@@ -1,12 +1,8 @@
 package com.ftn.paymentsystem.dto;
 
-import  java.time.LocalDate;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,17 +33,6 @@ public class UserDTO {
     @Email
     private String email;
 
-    private String address;
-
-    private LocalDate dateOfBirth;
-
-    private String phoneNumber;
-
-    private boolean blocked;
-
     private boolean deleted;
-
-    @NotBlank
-    private String userType;
 
 }

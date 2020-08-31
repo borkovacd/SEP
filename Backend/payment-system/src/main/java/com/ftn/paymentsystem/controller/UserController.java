@@ -12,7 +12,6 @@ import javax.validation.Valid;
 import com.ftn.paymentsystem.dto.PageDTO;
 import com.ftn.paymentsystem.dto.UserDTO;
 import com.ftn.paymentsystem.enums.ERole;
-import com.ftn.paymentsystem.enums.UserType;
 import com.ftn.paymentsystem.model.Role;
 import com.ftn.paymentsystem.model.User;
 import com.ftn.paymentsystem.service.RoleService;
@@ -23,6 +22,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -46,8 +46,8 @@ public class UserController {
     UserService userService;
     @Autowired
     RoleService roleService;
-    //@Autowired
-    //PasswordEncoder encoder;
+    @Autowired
+    PasswordEncoder encoder;
 
     @RequestMapping(method = RequestMethod.GET)
     //@PreAuthorize("hasRole('ADMIN')")
@@ -77,14 +77,13 @@ public class UserController {
             @RequestParam(required = false, defaultValue = "") String firstName,
             @RequestParam(required = false, defaultValue = "") String lastName,
             @RequestParam(required = false, defaultValue = "") String username,
-            @RequestParam(required = false) boolean isBlocked,
             Pageable pageable) {
 
         //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         List<UserDTO> usersDTO = new ArrayList<UserDTO>();
-        Page<User> page = userService.getAllUsers(firstName, lastName, username, isBlocked, pageable);
+        Page<User> page = userService.getAllUsers(firstName, lastName, username, pageable);
         for(User user : page.getContent()) {
             //Check if this user is currently logged in
             //if(user.getId() != userDetails.getId()) {
@@ -130,48 +129,15 @@ public class UserController {
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         Set<Role> roles = new HashSet<>();
-        if(userDTO.getUserType().equals("USER")) {
-            user.setUserType(UserType.USER);
-            Role userRole = roleService.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        } else {
-            user.setUserType(UserType.ADMIN);
-            Role adminRole = roleService.findByName(ERole.ROLE_ADMIN)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(adminRole);
-            Role userRole = roleService.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        }
+       
+        Role userRole = roleService.findByName(ERole.ROLE_USER)
+            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        roles.add(userRole);
+      
         user.setRoles(roles);
 
-        if(userDTO.getUserType().equals("USER")) {
-            if(userDTO.getAddress().equals("")) {
-                return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
-            } else {
-                user.setAddress(userDTO.getAddress());
-            }
-            if(userDTO.getPhoneNumber().equals("")) {
-                return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
-            } else {
-                user.setPhoneNumber(userDTO.getPhoneNumber());
-            }
-            if(userDTO.getDateOfBirth()==null) {
-                return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
-            } else {
-                user.setDateOfBirth(userDTO.getDateOfBirth());
-            }
-        } else {
-            user.setAddress("");
-            user.setPhoneNumber("");
-            user.setDateOfBirth(null);
-        }
-
-        //user.setPassword(encoder.encode(userDTO.getPassword()));
-        user.setPassword(userDTO.getPassword());
-
-        user.setBlocked(false);
+        user.setPassword(encoder.encode(userDTO.getPassword()));
+       
         user.setDeleted(false);
 
         user = userService.save(user);
@@ -179,77 +145,6 @@ public class UserController {
         ModelMapper modelMapper = new ModelMapper();
         UserDTO createdUserDTO = modelMapper.map(user, UserDTO.class);
         return new ResponseEntity<UserDTO>(createdUserDTO, HttpStatus.CREATED);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    //@PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO userDTO) {
-        User user = userService.findById(id);
-        if(user != null && !user.isBlocked() && !user.isBlocked()) {
-            if (!userService.existsByUsername(userDTO.getUsername())) { //ukoliko NE postoji user sa tim username-om
-                return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
-            }
-            if (!userService.existsByEmail(userDTO.getEmail())) { //ukoliko NE postoji user sa tim email-om
-                return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
-            }
-            Set<Role> roles = new HashSet<>();
-            if(userDTO.getUserType().equals("USER")) {
-                user.setUserType(UserType.USER);
-                Role userRole = roleService.findByName(ERole.ROLE_USER)
-                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                roles.add(userRole);
-            } else {
-                user.setUserType(UserType.ADMIN);
-                Role adminRole = roleService.findByName(ERole.ROLE_ADMIN)
-                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                roles.add(adminRole);
-                Role userRole = roleService.findByName(ERole.ROLE_USER)
-                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                roles.add(userRole);
-            }
-            user.setRoles(roles);
-            if(userDTO.getUserType().equals("USER")) {
-                if(userDTO.getAddress().equals("")) {
-                    return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
-                } else {
-                    user.setAddress(userDTO.getAddress());
-                }
-                if(userDTO.getPhoneNumber().equals("")) {
-                    return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
-                } else {
-                    user.setPhoneNumber(userDTO.getPhoneNumber());
-                }
-                if(userDTO.getDateOfBirth()==null) {
-                    return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
-                } else {
-                    user.setDateOfBirth(userDTO.getDateOfBirth());
-                }
-            } else {
-                user.setAddress("");
-                user.setPhoneNumber("");
-                user.setDateOfBirth(null);
-            }
-
-            if(userDTO.getFirstName().equals("")) {
-                return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
-            } else {
-                user.setFirstName(userDTO.getFirstName());
-            }
-            if(userDTO.getLastName().equals("")) {
-                return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
-            } else {
-                user.setLastName(userDTO.getLastName());
-            }
-
-            user = userService.save(user);
-
-            ModelMapper modelMapper = new ModelMapper();
-            UserDTO updatedUserDTO = modelMapper.map(user, UserDTO.class);
-            return new ResponseEntity<UserDTO>(updatedUserDTO, HttpStatus.OK);
-
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -274,7 +169,6 @@ public class UserController {
                                             @RequestBody UserDTO userDTO) {
         User user = userService.findById(id);
         if(user != null && !user.isDeleted()) {
-            user.setBlocked(true);
             user = userService.save(user);
             return new ResponseEntity<Object>(HttpStatus.OK);
         } else {

@@ -16,11 +16,11 @@ public class UserService {
     UserRepository userRepository;
 
     public List<User> getAllUsers() {
-        return userRepository.findAllUsers();
+        return userRepository.findAll();
     }
 
-    public Page<User> getAllUsers(String firstName, String lastName, String username, boolean isBlocked, Pageable pageable) {
-        return userRepository.findAllUsers(firstName, lastName, username, isBlocked, pageable);
+    public Page<User> getAllUsers(String firstName, String lastName, String username, Pageable pageable) {
+        return userRepository.findAllUsers(firstName, lastName, username, pageable);
     }
 
     public User findById(Long id) {

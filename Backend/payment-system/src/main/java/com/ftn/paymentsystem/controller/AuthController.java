@@ -1,6 +1,6 @@
 package com.ftn.paymentsystem.controller;
 
-import java.time.LocalDate;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import com.ftn.paymentsystem.enums.ERole;
-import com.ftn.paymentsystem.enums.UserType;
 import com.ftn.paymentsystem.model.Role;
 import com.ftn.paymentsystem.model.User;
 import com.ftn.paymentsystem.payload.request.LoginRequest;
@@ -63,7 +62,6 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        //Zasto JwtResponse ne sadrzi samo token?
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
@@ -93,11 +91,6 @@ public class AuthController {
                 signUpRequest.getEmail(),
                 signUpRequest.getUsername(),
                 encoder.encode(signUpRequest.getPassword()),
-                signUpRequest.getAddress(),
-                signUpRequest.getDateOfBirth(),
-                signUpRequest.getPhoneNumber(),
-                UserType.USER,
-                false,
                 false);
 
         Set<String> strRoles = signUpRequest.getRole();
@@ -124,10 +117,6 @@ public class AuthController {
         }
 
         user.setRoles(roles);
-        for(Role role : roles) {
-            if(role.getName().equals(ERole.ROLE_ADMIN))
-                user.setUserType(UserType.ADMIN);
-        }
 
         userService.save(user);
 

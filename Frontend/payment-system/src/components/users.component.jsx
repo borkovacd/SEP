@@ -18,39 +18,39 @@ class Users extends Component {
 
   retrieveUsers() {
     UserService.getAll()
-      .then(response => {
+      .then((response) => {
         this.setState({
           users: response.data,
-          isLoading: false
+          isLoading: false,
         });
         console.log(response.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   }
 
   //naming convention HANDE-something
-  handleBlock = item => () => {
+  handleBlock = (item) => () => {
     console.log("Handle Block ---> " + item.id);
     UserService.block(item.id, item)
-      .then(response => {
+      .then((response) => {
         console.log(response.data);
         this.refreshView();
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
 
-  handleDelete = item => () => {
+  handleDelete = (item) => () => {
     console.log("Handle Delete ---> " + item.id);
     UserService.delete(item.id)
-      .then(response => {
+      .then((response) => {
         console.log(response.data);
         this.refreshView();
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
