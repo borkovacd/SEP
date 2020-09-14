@@ -1,0 +1,72 @@
+.check-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+
+  .item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+    font-weight: 600;
+
+    span {
+      width: 12px;
+      height: 12px;
+      background: white;
+      left: 0;
+      margin-right: 5%;
+      border-radius: 100%;
+      border: 1px solid $red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &.active {
+        background: $white;
+
+        &:before {
+          font-family: "Font Awesome\ 5 Free";
+          content: "\f111";
+          display: flex;
+          line-height: 9px;
+          font-size: 9px;
+          color: $red;
+        }
+      }
+    }
+  }
+}
+
+.fo-columns {
+  .check-group {
+    flex-direction: column;
+
+    .item {
+      span {
+        width: 10px;
+        height: 10px;
+
+        margin-right: 10px;
+        border-radius: 0;
+        border: 1px solid $red;
+
+        &.active {
+          background: $red;
+
+          &:before {
+            font-family: "Font Awesome\ 5 Free";
+            content: "\f00c";
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 10px;
+            font-size: 10px;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

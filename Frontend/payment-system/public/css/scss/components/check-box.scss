@@ -1,0 +1,37 @@
+.check-box-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+
+  label {
+    cursor: pointer;
+    font-size: 15px;
+  }
+
+  span {
+    width: 11px;
+    height: 11px;
+    border: 1px ridge $lightGrayBorder;
+    background: white;
+    margin-right: 10px;
+
+    font-weight: 600;
+
+    &.active {
+      background: $red;
+
+      &:before {
+        font-family: "Font Awesome\ 5 Free";
+        content: "\f00c";
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 10px;
+        font-size: 10px;
+        text-align: center;
+      }
+    }
+  }
+}

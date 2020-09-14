@@ -1,0 +1,158 @@
+#header {
+  position: fixed !important;
+  z-index: 99999;
+  top: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 105px;
+  background: $white;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+  background: $white;
+}
+
+.brand {
+  display: flex;
+  justify-content: left;
+}
+
+.logo {
+  cursor: pointer;
+  img {
+    top: 0;
+    left: 0;
+    height: 105px;
+    width: 174px;
+  }
+}
+
+.header-brand-title {
+  margin-top: 14px;
+  margin-left: 75px;
+  height: 57px;
+  width: 280px;
+  color: $blue;
+  font-family: "Times Cirilica";
+  font-size: 40px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 36px;
+  cursor: default;
+}
+
+.menu {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-right: 5%;
+}
+
+.btn-login {
+  margin-right: 2%;
+  height: 35px;
+  width: 140px;
+  background: $red;
+  border-radius: 4px;
+  border: 0.5px solid $lightGrayBorder;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.85;
+    color: white;
+  }
+
+  a {
+    text-decoration: none;
+    border-radius: 4px;
+    color: #fff;
+    font-family: "Futura Md BT";
+    font-weight: 500;
+    font-size: large;
+    text-align: center;
+    display: flex;
+  }
+}
+
+.btn-register {
+  margin-right: 2%;
+  height: 35px;
+  width: 140px;
+  background: $blue;
+  border-radius: 4px;
+  border: 0.5px solid $lightGrayBorder;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.85;
+    color: white;
+  }
+
+  a {
+    text-decoration: none;
+    border-radius: 4px;
+    color: $white;
+    font-family: "Futura Md BT";
+    font-weight: 500;
+    font-size: large;
+    text-align: center;
+    display: flex;
+  }
+}
+
+.language-container {
+  position: fixed;
+  display: flex;
+  .language {
+    img {
+      width: 50px;
+      height: 30px;
+    }
+  }
+}
+
+@media screen and (max-width: $break-md) {
+  .menu {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: $break-sm) {
+  .menu {
+    //flex-direction: column;
+    //position: fixed;
+    //top: 105px;
+
+    width: 174px;
+  }
+
+  .brand {
+    display: grid;
+    grid-template-columns: 100%;
+    width: 174px;
+    margin-right: 10px;
+  }
+
+  .header-brand-title {
+    font-size: smaller;
+    margin-top: -30px;
+    color: $white;
+    margin-left: 50px;
+  }
+
+  .btn-login {
+    width: 174px;
+  }
+
+  .btn-register {
+    width: 174px;
+  }
+}

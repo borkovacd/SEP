@@ -1,0 +1,77 @@
+#footer {
+  width: 100%;
+  background: $white;
+  border-top: 1px solid #d0d0d0;
+  font-family: "Futura Lt BT";
+  color: $grayText;
+  margin: 0;
+  padding: 0;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1%;
+
+    .row {
+      margin-top: 2%;
+
+      .footer-title {
+        font-weight: medium;
+        font-size: larger;
+        text-transform: uppercase;
+      }
+
+      .img {
+        margin: auto;
+      }
+
+      .content-buttons-container {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 25% 25% 25%;
+        justify-content: space-between;
+
+        .button-round-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 40px;
+          width: 40px;
+          background-color: $grayText;
+          border-radius: 50%;
+          color: $white;
+          text-decoration: none;
+
+          .i {
+            font-size: x-large;
+            color: $white;
+          }
+        }
+      }
+
+      .links-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        .link-container {
+          margin-right: 15px;
+          font-size: 14px;
+          display: flex;
+          flex-direction: row;
+          text-decoration: none;
+          color: $grayText;
+        }
+      }
+    }
+
+    .last-row {
+      margin-top: 1%;
+      margin-bottom: 2%;
+      opacity: 0.85;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+.date-select {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .select {
+    width: 48%;
+  }
+
+  .select {
+    &:first-child {
+      width: 22%;
+    }
+    &:last-child {
+      width: 30%;
+    }
+  }
+}

@@ -5,12 +5,9 @@ import "./App.css";
 import AuthService from "./services/auth.service";
 
 import Home from "./components/home.component";
-import Users from "./components/users.component";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Profile from "./components/profile.component";
-import BoardUser from "./components/boardUser.component";
-import BoardAdmin from "./components/boardAdmin.component";
 
 class App extends Component {
   constructor(props) {
@@ -60,22 +57,6 @@ class App extends Component {
                   Vehicles
                 </Link>
               </li>
-
-              {showAdminBoard && (
-                <li className="nav-item">
-                  <Link to={"/admin"} className="nav-link">
-                    Admin Board
-                  </Link>
-                </li>
-              )}
-
-              {showAdminBoard && (
-                <li className="nav-item">
-                  <Link to={"/users"} className="nav-link">
-                    Users
-                  </Link>
-                </li>
-              )}
 
               {currentUser && (
                 <li className="nav-item">
@@ -130,9 +111,6 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />
-              <Route path="/user" component={BoardUser} />
-              <Route path="/admin" component={BoardAdmin} />
-              <Route path="/users" exact={true} component={Users} />
             </Switch>
           </div>
         </div>

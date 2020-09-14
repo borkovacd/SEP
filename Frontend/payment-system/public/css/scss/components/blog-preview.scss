@@ -1,0 +1,105 @@
+.blog-preview-container {
+  border-radius: 5%;
+  background-color: $white;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 10%;
+
+  .header {
+    min-height: 300px;
+    width: 100%;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+    background-size: cover !important;
+    background-position-x: center !important;
+    background-position-y: center !important;
+    background-repeat: no-repeat !important;
+    outline: none;
+  }
+
+  .content {
+    padding: 5% 5%;
+    align-items: left;
+    width: 90%;
+
+    .content-title-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .content-title {
+        position: relative;
+        text-align: left;
+        font-size: large;
+        font-weight: 600;
+        color: $blue;
+
+        margin-bottom: 5%;
+      }
+
+      .content-buttons-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .button-round-container {
+          position: relative;
+          height: 20px;
+          width: 20px;
+          background-color: $blue;
+          border-radius: 50%;
+          color: $white;
+          text-align: center;
+
+          .i {
+            font-size: small;
+          }
+        }
+      }
+    }
+
+    .content-text {
+      color: $grayText;
+      font-weight: 500;
+    }
+
+    .content-read-more {
+      margin-top: 5%;
+      font-weight: 500;
+    }
+  }
+
+  .related-post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .header {
+      min-height: 350px;
+      width: 100%;
+      border-radius: 5%;
+      background-size: cover !important;
+      background-position-x: center !important;
+      background-position-y: center !important;
+      background-repeat: no-repeat !important;
+      outline: none;
+    }
+
+    .title {
+      display: flex;
+      padding: 3% 3%;
+      font-weight: bold;
+      color: $blue;
+      cursor: pointer;
+      font-size: large;
+      text-decoration: none;
+      font-style: normal;
+
+      overflow: hidden;
+    }
+
+    .btn-blog-details {
+      border: none;
+      background: none;
+    }
+  }
+}

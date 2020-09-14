@@ -1,0 +1,50 @@
+.village-preview-container {
+  background-color: $white;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  width: 475px;
+  margin-bottom: 10%;
+
+  .header {
+    height: 355px;
+    width: 475px;
+    background-size: cover !important;
+    background-position-x: center !important;
+    background-position-y: center !important;
+    background-repeat: no-repeat !important;
+    outline: none;
+  }
+
+  .content {
+    padding: 5% 5%;
+    align-items: left;
+    width: 90%;
+
+    .content-title-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .content-title {
+        position: relative;
+        text-align: left;
+        font-size: large;
+        font-weight: 600;
+        color: $grayText;
+        cursor: pointer;
+        margin-bottom: 5%;
+        text-decoration: none;
+      }
+
+      .content-buttons-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .content-text {
+      color: $grayText;
+      font-weight: 500;
+    }
+  }
+}

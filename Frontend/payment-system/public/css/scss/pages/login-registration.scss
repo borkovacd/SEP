@@ -1,0 +1,246 @@
+.login-registration-page {
+  margin-top: 200px;
+  text-align: center;
+  color: $grayText;
+  margin-bottom: 5%;
+}
+
+.lrp-title {
+  text-transform: uppercase;
+  font-style: initial;
+  line-height: 40px;
+  text-decoration: none;
+  font-family: "Futura Md BT";
+  font-size: 35px;
+  font-weight: 600;
+  line-height: 42px;
+}
+
+.lrp-grid-container {
+  display: grid;
+  grid-template-columns: 40% 40%;
+  justify-content: center;
+  margin-top: 5%;
+  //background-color: black;
+
+  &.second-step {
+    display: grid;
+    grid-template-columns: 40%;
+    justify-content: center;
+    margin-top: 5%;
+    //background-color: black;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.lrp-form-container {
+  padding: 5% 12%;
+  text-align: left;
+  background-color: $white;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+
+  &.padding-2 {
+    padding: 5% 20%;
+  }
+}
+
+.lrp-form-title {
+  text-align: left;
+  font-size: x-large;
+  font-weight: 600;
+  letter-spacing: 2px;
+  border-bottom: 1px solid $red;
+  margin-bottom: 10%;
+}
+
+.column {
+  &.not-a-member {
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    margin-top: 15px;
+
+    &.center {
+      justify-content: center;
+    }
+
+    .space {
+      margin: 0 5px;
+    }
+  }
+}
+
+.lrp-social-buttons {
+  padding-left: 20%;
+  padding-top: 5%;
+  text-align: left;
+  //background-color: yellow;
+}
+
+.lrp-social-buttons-title {
+  text-decoration: none;
+  font-family: "Futura Md BT";
+  font-size: x-large;
+  font-weight: 500;
+
+  &.longer {
+    font-weight: 500;
+    font-size: large;
+    max-width: 320px;
+    margin-bottom: 10%;
+  }
+}
+
+.social-btn {
+  font-weight: 600;
+  min-height: 40px;
+  min-width: 260px;
+  padding-top: 3%;
+  cursor: pointer;
+  padding-right: 5%;
+  border: none;
+  border-radius: 4px;
+  margin: 5px 0;
+  opacity: 1;
+  display: inline-block;
+  font-family: "Futura Md BT";
+  font-size: medium;
+  text-decoration: none;
+  text-align: center;
+
+  .i {
+    padding-right: 10%;
+    font-size: medium;
+  }
+}
+
+.social-btn:hover {
+  opacity: 0.85;
+}
+
+.fb {
+  background-color: #3b5998;
+  color: white;
+}
+
+.twitter {
+  background-color: #55acee;
+  color: white;
+}
+
+.google {
+  background-color: #dd4b39;
+  color: white;
+}
+
+@media screen and (max-width: $break-xl) {
+  .lrp-grid-container {
+    grid-template-columns: 45% 45%;
+  }
+}
+
+@media screen and (max-width: $break-lg) {
+  .lrp-grid-container {
+    &.second-step {
+      grid-template-columns: 70%;
+    }
+  }
+}
+
+@media screen and (max-width: $break-sm) {
+  .lrp-grid-container {
+    display: flex;
+    flex-direction: column;
+
+    &.second-step {
+      grid-template-columns: 100%;
+    }
+  }
+}
+
+.canvas-container {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.photo-placeholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 0;
+  width: 100%;
+  padding-bottom: 100%;
+  background: $photo-placeholder-bg;
+  border: 1px solid $photo-placeholder-border;
+  overflow: hidden;
+
+  .file-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 500000;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    opacity: 0;
+  }
+
+  .upload-placeholder {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 7%;
+    background: url("../images/upload-placeholder.png");
+    background-size: contain;
+  }
+}
+
+.choose-image {
+  position: relative;
+  margin-bottom: 5%;
+  text-align: center;
+
+  cursor: pointer;
+
+  p {
+    cursor: pointer;
+    font-size: larger;
+    font-weight: 600px;
+    z-index: 1;
+    opacity: 1;
+    transition: 0.15s;
+  }
+
+  &:hover {
+    p {
+      opacity: 0.8;
+      transition: 0.15s;
+    }
+  }
+
+  input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+    z-index: 999999999999;
+  }
+}
+
+@media screen and (max-width: $break-sm) {
+  .login-registration-page {
+    margin-top: 280px;
+  }
+}

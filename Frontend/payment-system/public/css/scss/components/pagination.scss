@@ -1,0 +1,67 @@
+// LOAD MORE
+.load-more-dots {
+  color: $grayText;
+  margin-top: 2%;
+  font-size: xx-large;
+  opacity: 0.8;
+}
+
+.load-more-text {
+  color: $grayText;
+  font-weight: 500;
+  font-size: larger;
+  border: none;
+  background: transparent;
+  text-decoration: underline;
+  cursor: pointer;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+//PAGINATION
+.pagination {
+  margin-top: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    border: 1px solid $blue;
+    color: $blue;
+    font-size: larger;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+
+    i {
+      color: $blue;
+      font-size: larger;
+    }
+  }
+
+  .disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    i {
+      font-size: larger;
+    }
+  }
+
+  .active {
+    background: $blue;
+    color: $white;
+  }
+
+  .pages {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}

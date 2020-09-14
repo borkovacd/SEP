@@ -1,0 +1,122 @@
+.slider-items-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  width: 100%;
+  margin-top: 105px;
+
+  min-height: 850px;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: center;
+  background-repeat: no-repeat;
+
+  .slider-grid-container {
+    display: grid;
+    grid-template-columns: 45% 55%;
+
+    .search-form-container {
+      width: 50%;
+      margin: auto;
+    }
+
+    .slider-village-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: left;
+      width: 50%;
+      margin: auto;
+
+      .name {
+        font-family: "Futura Md BT";
+        color: #3a3a3a;
+        font-weight: 500;
+        //font-size: x-large;
+        font-size: 30px;
+        margin-bottom: 10%;
+      }
+
+      .text {
+        color: $grayText;
+        font-weight: 300;
+        font-family: "Futura Lt BT";
+        //font-size: medium;
+        font-size: 24px;
+        margin-bottom: 5%;
+      }
+    }
+  }
+
+  @media screen and (max-width: $break-xl) {
+    .slider-grid-container {
+      display: grid;
+      grid-template-columns: 45% 50%;
+
+      .search-form-container {
+        width: 75%;
+      }
+      .slider-village-container {
+        width: 75%;
+      }
+    }
+  }
+
+  @media screen and (max-width: $break-lg) {
+    .slider-grid-container {
+      display: grid;
+      grid-template-columns: 45% 50%;
+
+      .search-form-container {
+        width: 95%;
+      }
+      .slider-village-container {
+        width: 95%;
+      }
+    }
+  }
+
+  @media screen and (max-width: $break-md) {
+    .slider-grid-container {
+      display: flex;
+      flex-direction: column;
+
+      .search-form-container {
+        width: 75%;
+        margin-bottom: 5%;
+        margin-top: 5%;
+      }
+      .slider-village-container {
+        width: 75%;
+      }
+    }
+  }
+
+  @media screen and (max-width: $break-sm) {
+    .slider-grid-container {
+      .search-form-container {
+        width: 95%;
+        margin-bottom: 5%;
+        margin-top: 5%;
+      }
+      .slider-village-container {
+        width: 95%;
+      }
+    }
+  }
+}
+
+.slide {
+  display: none;
+  width: 100%;
+}
+
+.active {
+  display: block;
+}
+
+.slider-arrow {
+  color: #707070;
+  cursor: pointer;
+}

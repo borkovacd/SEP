@@ -1,0 +1,76 @@
+.blogs-page {
+  margin: 104px auto;
+  width: 90%;
+  background: none;
+  background-color: $white;
+  min-height: 80vh;
+  color: $grayText;
+}
+
+.blogs-page-header {
+  position: relative;
+  height: 330px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0.2;
+  color: $serbia;
+  font-family: "Futura Md BT";
+  font-size: 275px;
+  font-weight: 500;
+  line-height: 330px;
+  //background-color: greenyellow;
+}
+
+.blogs-page-title {
+  position: absolute;
+  top: 250px;
+  text-align: center;
+  left: 42%;
+  text-transform: uppercase;
+  font-style: initial;
+  line-height: 40px;
+  text-decoration: none;
+  font-family: "Futura Md BT";
+  font-size: 35px;
+  font-weight: 600;
+  line-height: 42px;
+  opacity: 1;
+}
+
+.blogs-grid-container {
+  display: grid;
+  grid-template-columns: 29% 29% 29%;
+  justify-content: space-around;
+  align-items: center;
+
+  //background-color: black;
+}
+
+@media screen and (max-width: $break-xl) {
+  .blogs-grid-container {
+    grid-template-columns: 45% 45%;
+    justify-content: space-around;
+  }
+}
+
+@media screen and (max-width: $break-md) {
+  .blogs-page-header {
+    opacity: 0;
+    height: 150px;
+  }
+
+  .blogs-page-title {
+    top: 170px;
+  }
+}
+
+@media screen and (max-width: $break-sm) {
+  .blogs-grid-container {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+  }
+}

@@ -1,0 +1,32 @@
+.quick-search-form-container {
+  text-align: left;
+  background-color: $white;
+  border-radius: 5%;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  color: $grayText;
+  margin: 0;
+  padding: 0;
+  padding: 10% 10%;
+
+  .qs-title {
+    width: 100%;
+    text-align: left;
+    font-size: large;
+    color: $grayText;
+    border-bottom: 1px solid $lightGray;
+    font-weight: bolder;
+    margin-bottom: 5%;
+  }
+
+  .container {
+  }
+
+  @media screen and (max-width: $break-md) {
+    .container {
+      display: grid;
+      grid-template-columns: 50% 40%;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}

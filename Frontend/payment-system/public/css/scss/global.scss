@@ -1,0 +1,230 @@
+html {
+  margin: 0;
+  overflow-x: hidden;
+  color: black;
+  font-family: "Lato", sans-serif;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+
+  min-height: 100vh;
+  background: url("../../images/background_7.jpg");
+
+  background-size: cover !important;
+  background-position-x: center !important;
+  background-position-y: center !important;
+  background-repeat: space !important;
+
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+}
+
+p {
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+}
+
+a {
+  color: $red;
+  font-size: 15px;
+  opacity: 1;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+input,
+textarea,
+select,
+a,
+button {
+  outline: none;
+}
+
+input:disabled {
+  opacity: 0.7;
+}
+
+.page-container {
+  margin-top: 107px;
+  width: 90%;
+  //padding: 140px 15px;
+  min-height: 60vh;
+  background-color: black;
+  color: $grayText;
+
+  @media screen and (min-width: $break-md) {
+    width: calc(90% - 200px);
+    padding: 140px 100px;
+  }
+
+  @media screen and (min-width: $break-lg) {
+    width: calc(75% - 200px);
+    padding: 140px 100px;
+  }
+
+  @media screen and (min-width: $break-xl) {
+    width: calc(60% - 200px);
+    padding: 140px 100px;
+  }
+}
+
+input,
+textarea,
+select {
+  background: white;
+  border: none;
+  letter-spacing: 1px;
+  border-radius: 5px;
+  background-color: $white;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+  color: $placeholder-text;
+}
+
+.btn {
+  color: $white;
+  font-family: "Futura Md BT";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 5px;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: unset;
+  opacity: 1;
+  height: 34px;
+  width: 135px;
+  min-width: 115px;
+  border-radius: 5px;
+  background-color: $red;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5);
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &.wide {
+    width: 100%;
+  }
+}
+
+.lrp-btn {
+  margin-top: 10%;
+}
+
+.btn-orange {
+  background: $red;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.btn-blue {
+  background: $blue;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.btn-red {
+  color: white;
+  background: $red;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.btn-gray {
+  background: none;
+  background-color: rgba(198, 198, 198, 0.6);
+  color: #444;
+  opacity: 1;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.add-button {
+  color: $red;
+  font-size: 15px;
+  cursor: pointer;
+  opacity: 0.9;
+  padding-right: 20px;
+  margin-top: 15px;
+
+  @media screen and (min-width: $break-md) {
+    padding-right: 0;
+    margin-top: 0;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.disabled {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+}
+
+.orange-text {
+  color: $red;
+}
+
+.gray-text {
+  color: $grayText;
+}
+
+.center {
+  text-align: center;
+}
+
+.mb-5 {
+  margin-bottom: 5%;
+}
+
+.blue-link {
+  color: $blue;
+}
+
+.line-separator {
+  width: 100%;
+  height: 1px;
+  margin: 10px 0;
+  margin-bottom: 20px;
+
+  &.gray {
+    background: $grayText;
+  }
+}
+
+.required:after {
+  content: " *";
+  color: red;
+}
