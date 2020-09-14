@@ -1,0 +1,2 @@
+insert into seller_data (id, paypal_client_id, paypal_secret) values 
+ (1, 'AQBuI2NHwzAMuKe6ZL2gXha-jCyecSecVXLIxTxH7zjoyx3j49ZhOcTWmk_58rrcIV1aAlKH_ovmQEJd', 'EAFsKRFCIGcxckRJd4RLrZywJ0MnF46OO4W7MNpY7iGtcQcn7-BJS2_53-H3VgGiRU4jnUQjHoEyROXP');

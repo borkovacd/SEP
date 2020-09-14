@@ -29,7 +29,6 @@ import com.ftn.scientificcentral.security.service.UserDetailsImpl;
 import com.ftn.scientificcentral.service.RoleService;
 import com.ftn.scientificcentral.service.UserService;
 
-//@CrossOrigin(origins = "*", maxAge = 3600)
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/auth")
@@ -75,16 +74,15 @@ public class AuthController {
         if (userService.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Greška: Korisničko ime već postoji!"));
+                    .body(new MessageResponse("Error: Username already exists!"));
         }
 
         if (userService.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Greška: Email adresa već postoji!"));
+                    .body(new MessageResponse("Error: Email already exists!"));
         }
 
-        // Create new user's account
         User user = new User(
                 signUpRequest.getFirstName(),
                 signUpRequest.getLastName(),
@@ -120,6 +118,6 @@ public class AuthController {
 
         userService.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("Uspešno ste se registrovali!"));
+        return ResponseEntity.ok(new MessageResponse("You've been successfully registered!"));
     }
 }
