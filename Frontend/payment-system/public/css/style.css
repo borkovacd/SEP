@@ -8,7 +8,7 @@ html {
 body {
   margin: 0;
   overflow-x: hidden;
-  min-height: 100vh;
+  min-height: 130vh;
   background: url("../../images/background_7.jpg");
   background-size: cover !important;
   background-position-x: center !important;
@@ -322,17 +322,19 @@ select {
     width: 174px; }
 
 .header-brand-title {
-  margin-top: 14px;
-  margin-left: 75px;
-  height: 57px;
-  width: 280px;
-  color: #00498e;
+  margin-left: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #d93943;
   font-family: "Times Cirilica";
   font-size: 40px;
   font-style: italic;
   font-weight: 700;
   line-height: 36px;
-  cursor: default; }
+  cursor: pointer;
+  text-decoration: none; }
 
 .menu {
   position: relative;
@@ -1139,7 +1141,7 @@ select {
       font-weight: 500; }
 
 .login-registration-page {
-  margin-top: 200px;
+  margin-top: 250px;
   text-align: center;
   color: #737373;
   margin-bottom: 5%; }

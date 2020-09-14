@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ftn.paymentsystem.dto.PaymentRequestDTO;
-import com.ftn.paymentsystem.model.PaymentRequest;
 import com.ftn.paymentsystem.service.PaymentService;
-import com.ftn.paymentsystem.utils.TokenUtils;
 
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
@@ -19,8 +17,7 @@ import com.paypal.base.rest.PayPalRESTException;
 @RestController("/")
 public class PaymentController {
 	
-	@Autowired
-	TokenUtils tokenUtils;
+	
 	
 	@Autowired
 	private PaymentService paymentService;
@@ -29,18 +26,18 @@ public class PaymentController {
 	public String payment(@RequestBody PaymentRequestDTO pr) {
 		//return paymentService.generatePaymentUrl(payingRequest);
 		
-		PaymentRequest paymentRequest = tokenUtils.getPaymentRequest();
-			try {
-				Payment payment = paymentService.createPayment(pr);
-				for(Links link:payment.getLinks()) {
-					if(link.getRel().equals("approval_url")) {
-						return link.getHref();
-					}
-				}			
-			} catch (PayPalRESTException e) {
-				e.printStackTrace();
-			}
-			return "https://localhost:8672/paypal/error.html";
+		
+		try {
+			Payment payment = paymentService.createPayment(pr);
+			for(Links link:payment.getLinks()) {
+				if(link.getRel().equals("approval_url")) {
+					return link.getHref();
+				}
+			}			
+		} catch (PayPalRESTException e) {
+			e.printStackTrace();
+		}
+		return "https://localhost:8672/paypal/error.html";
 	}
 	
 	@PostMapping("/cancel")

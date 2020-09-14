@@ -27,17 +27,20 @@
 }
 
 .header-brand-title {
-  margin-top: 14px;
-  margin-left: 75px;
-  height: 57px;
-  width: 280px;
-  color: $blue;
+  margin-left: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: $red;
   font-family: "Times Cirilica";
   font-size: 40px;
   font-style: italic;
   font-weight: 700;
   line-height: 36px;
-  cursor: default;
+
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .menu {

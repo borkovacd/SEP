@@ -6,23 +6,23 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      content: ""
+      content: "",
     };
   }
 
   componentDidMount() {
     UserService.getPublicContent().then(
-      response => {
+      (response) => {
         this.setState({
-          content: response.data
+          content: response.data,
         });
       },
-      error => {
+      (error) => {
         this.setState({
           content:
             (error.response && error.response.data) ||
             error.message ||
-            error.toString()
+            error.toString(),
         });
       }
     );
@@ -30,7 +30,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container login-registration-page">
         <header className="jumbotron">
           <h3>{this.state.content}</h3>
         </header>

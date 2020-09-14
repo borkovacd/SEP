@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import "./App.css";
 
 import AuthService from "./services/auth.service";
@@ -40,79 +46,45 @@ class App extends Component {
 
     return (
       <Router>
-        <div>
-          <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <Link to={"/"} className="navbar-brand">
-              Rent - Drive
-            </Link>
-            <div className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link to={"/home"} className="nav-link">
-                  Home
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link to={"/vehicles"} className="nav-link">
-                  Vehicles
-                </Link>
-              </li>
-
-              {currentUser && (
-                <li className="nav-item">
-                  <Link to={"/user"} className="nav-link">
-                    User
-                  </Link>
-                </li>
-              )}
-
-              {currentUser && (
-                <li className="nav-item">
-                  <Link to={"/rentals"} className="nav-link">
-                    Rentals
-                  </Link>
-                </li>
-              )}
+        <div id="header">
+          <div className="brand">
+            <div className="header-brand-title">
+              <Link className="header-brand-title" to={"/"}>
+                Payment System
+              </Link>
             </div>
-
-            {currentUser ? (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to={"/profile"} className="nav-link">
-                    {currentUser.username}
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <a href="/login" className="nav-link" onClick={this.logOut}>
-                    LogOut
-                  </a>
-                </li>
-              </div>
-            ) : (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to={"/login"} className="nav-link">
-                    Login
-                  </Link>
-                </li>
-
-                <li className="nav-item">
-                  <Link to={"/register"} className="nav-link">
-                    Sign Up
-                  </Link>
-                </li>
-              </div>
-            )}
-          </nav>
-
-          <div className="container-md mt-3">
-            <Switch>
-              <Route exact path={["/", "/home"]} component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/profile" component={Profile} />
-            </Switch>
           </div>
+          <div className="menu">
+            {!currentUser && (
+              <React.Fragment>
+                <div className="btn-login">
+                  <Link to={"/login"}>Sign In</Link>
+                </div>
+                <div className="btn-register">
+                  <Link to={"/register"}>Sign Up</Link>
+                </div>
+              </React.Fragment>
+            )}
+            {currentUser && (
+              <React.Fragment>
+                <div className="btn-login">
+                  <Link to={"/profile"}>Profile</Link>
+                </div>
+                <div className="btn-register" onClick={() => this.logOut()}>
+                  <a>Logout</a>
+                </div>
+              </React.Fragment>
+            )}
+          </div>
+        </div>
+
+        <div className="container-md mt-3">
+          <Switch>
+            <Route exact path={["/", "/home"]} component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/profile" component={Profile} />
+          </Switch>
         </div>
       </Router>
     );

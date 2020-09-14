@@ -6,7 +6,7 @@ export default class Profile extends Component {
     super(props);
 
     this.state = {
-      currentUser: AuthService.getCurrentUser()
+      currentUser: AuthService.getCurrentUser(),
     };
   }
 
