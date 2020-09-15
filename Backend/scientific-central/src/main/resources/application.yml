@@ -1,0 +1,9 @@
+server:
+  port: 8080
+  ssl:
+    enabled: false
+    key-store: classpath:nckeystore.jks
+    key-store-password: ncpass
+    key-alias: nc
+    trust-store: classpath:nckeystore.jks
+    trust-store-password: ncpass

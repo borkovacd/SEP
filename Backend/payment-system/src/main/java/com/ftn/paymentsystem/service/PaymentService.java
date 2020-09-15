@@ -74,8 +74,8 @@ public class PaymentService {
 		payment.setTransactions(transactions);
 				
 		RedirectUrls redirectUrls = new RedirectUrls();
-		//redirectUrls.setCancelUrl(KP_URL+"/cancel.html?id=" + Long.toString(nalog.getId()));
-		//redirectUrls.setReturnUrl(KP_URL+"/confirmPayment.html");
+		redirectUrls.setCancelUrl("http://localhost:3000/register");
+		redirectUrls.setReturnUrl("http://localhost:3000/register");
 		payment.setRedirectUrls(redirectUrls);
 		
 		payment = payment.create(getApiContext(seller.getPaypalClientId(), seller.getPaypalSecret()));
@@ -114,7 +114,10 @@ public class PaymentService {
 		Map<String, String> configMap = new HashMap<>();
 		configMap.put("mode", mode);
 		
-		APIContext context = new APIContext(new OAuthTokenCredential(clientId, clientSecret, configMap).getAccessToken());
+		APIContext context = new APIContext(new OAuthTokenCredential
+				("AQBuI2NHwzAMuKe6ZL2gXha-jCyecSecVXLIxTxH7zjoyx3j49ZhOcTWmk_58rrcIV1aAlKH_ovmQEJd", 
+				 "EAFsKRFCIGcxckRJd4RLrZywJ0MnF46OO4W7MNpY7iGtcQcn7-BJS2_53-H3VgGiRU4jnUQjHoEyROXP",
+				 configMap).getAccessToken());
 		context.setConfigurationMap(configMap);
 		return context;
 	}
