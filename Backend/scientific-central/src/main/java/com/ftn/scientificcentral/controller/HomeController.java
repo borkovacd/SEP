@@ -24,12 +24,12 @@ public class HomeController {
 	RestTemplate restTemplate;
     
 	@PostMapping("/beginPaymentProcess")
-	public String beginPaymentProcess(@Valid @RequestBody BeginPaymentRequest request) {
+	public ResponseEntity<String> beginPaymentProcess(@Valid @RequestBody BeginPaymentRequest request) {
 		
 		PayingRequestDTO payingRequest = new PayingRequestDTO(1, request.getMagazine());
 		ResponseEntity<String> response = restTemplate.postForEntity("https://localhost:9090/createPayment", payingRequest, String.class);
 		
-		return response.getBody();
+		return response;
 	}
 
 }

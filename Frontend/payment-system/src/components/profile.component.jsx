@@ -53,9 +53,11 @@ export default class Profile extends Component {
         this.state.magazine,
         this.state.paymentType
       ).then(
-        () => {
-          this.props.history.push("/");
-          window.location.reload();
+        (response) => {
+          console.log(response.data);
+          window.location.assign(response.data);
+          //this.props.history.push("/");
+          //window.location.reload();
         },
         (error) => {
           const resMessage =
