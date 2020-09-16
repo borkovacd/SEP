@@ -6,6 +6,10 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
+import Select from "../components/controls/Select";
+
+import { getMagazines } from "../utils/MagazinesUtil";
+
 const required = (value) => {
   if (!value) {
     return (
@@ -25,7 +29,8 @@ export default class Magazines extends Component {
 
     this.state = {
       currentUser: AuthService.getCurrentUser(),
-      magazine: 0,
+      magazine: 1,
+      price: 99,
       paymentType: "PAYPAL",
       loading: false,
       message: "",
@@ -33,8 +38,18 @@ export default class Magazines extends Component {
   }
 
   onChangeMagazine(e) {
+    let price = 0;
+    if (e.target.value === 1) {
+      price = 99;
+    } else if (e.target.value === 2) {
+      price = 150;
+    } else {
+      price = 49;
+    }
+
     this.setState({
       magazine: e.target.value,
+      price: price,
     });
   }
 
@@ -50,7 +65,7 @@ export default class Magazines extends Component {
 
     if (this.checkBtn.context._errors.length === 0) {
       PaymentService.beginPaymentProcess(
-        this.state.magazine,
+        this.state.price,
         this.state.paymentType
       ).then(
         (response) => {
@@ -94,24 +109,24 @@ export default class Magazines extends Component {
           >
             <div className="form-group">
               <label htmlFor="chooseMagazine">Magazine</label>
-              <Input
-                type="select"
-                className="form-control"
-                name="chooseMagazine"
-                value={this.state.magazine}
+              <Select
+                placeholder="Choose magazine"
+                items={getMagazines()}
+                selectedItem={this.state.magazine}
                 onChange={this.onChangeMagazine}
-                validations={[required]}
+                displayKey={"name"}
+                valueKey={"value"}
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="magazine">Price</label>
+              <label htmlFor="price">Price</label>
               <Input
+                readOnly={true}
                 type="number"
                 className="form-control"
-                name="magazine"
-                value={this.state.magazine}
-                onChange={this.onChangeMagazine}
+                name="price"
+                value={this.state.price}
                 validations={[required]}
               />
             </div>
@@ -119,6 +134,7 @@ export default class Magazines extends Component {
             <div className="form-group">
               <label htmlFor="paymentType">Payment Type</label>
               <Input
+                readOnly={true}
                 type="paymentType"
                 className="form-control"
                 name="paymentType"
