@@ -32,7 +32,10 @@ class Home extends Component {
     return (
       <div className="container login-registration-page">
         <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+          <h1>Welcome</h1>
+          <h2>
+            <i>Sing in to pick magazine of your choice</i>
+          </h2>
         </header>
       </div>
     );

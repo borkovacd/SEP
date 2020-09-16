@@ -26,11 +26,11 @@ public class PaymentOrder {
 	private String payerId;
 	
 	private double amount;
-	private String method;
+
 	private String intent;
-	private String description;
 	
-	//inicijalno status je 'CREATED'
+	
+	
 	private PaymentStatus paymentStatus = PaymentStatus.CREATED;
 
 }

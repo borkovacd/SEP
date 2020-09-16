@@ -30,18 +30,18 @@ public class PaymentController {
 	@Autowired
 	private PaymentService paymentService;
 	
+	private static final String SUCCESS_URL = "http://localhost:3000/payment/success";
+	private static final String CANCEL_URL = "http://localhost:3000/payment/cancel";
+	private static final String ERROR_URL = "http://localhost:3000/payment/error";
+	
 	
 	@PostMapping("createPayment")
 	public String createPayment(@RequestBody PaymentRequestDTO pr) {
-		
-		System.out.println("Usao u createPayment metodu!");
 		
 		try {
 			Payment payment = paymentService.createPayment(pr);
 			
 			for(Links link:payment.getLinks()) {
-				System.out.println("LINK: " + link.getRel());
-				System.out.println("LINK: " + link.getHref());
 				if(link.getRel().equals("approval_url")) {	
 					return link.getHref();
 				}
@@ -49,66 +49,36 @@ public class PaymentController {
 		} catch (PayPalRESTException e) {
 			e.printStackTrace();
 		}
-		return "";
+		return ERROR_URL;
 	}
 	
 	
 	@GetMapping(value = "/payment/complete/{id}")
     public RedirectView completePay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, @PathVariable Long id){
-		System.out.println("Usao u completePay metodu!");
         try {
             Payment payment = paymentService.executePayment(paymentId, payerId);
             if (payment.getState().equals("approved")) {
                 HttpHeaders requestHeaders = new HttpHeaders();
                 requestHeaders.setContentType(MediaType.APPLICATION_JSON);
                 requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-
-                //RestTemplate restTemplate = new RestTemplate();
-                //ResponseEntity<String> resp = restTemplate.getForEntity("http://localhost:8080/api/payment/complete/"+id, String.class);
-                return new RedirectView("http://localhost:3000/payment/success");
+                return new RedirectView(SUCCESS_URL);
             }
         } catch (PayPalRESTException e) {
             System.out.print(e);
         }
-        return new RedirectView("http://localhost:3000");
+        return new RedirectView(ERROR_URL);
 
     }
 
     @GetMapping(value = "/payment/cancel/{id}")
-    public RedirectView cancelPay(@PathVariable String id) {
+    public RedirectView cancelPayment(@PathVariable Long id) {
     	
-    	System.out.println("Usao u cancelPay metodu!");
-
+    	paymentService.cancelPaymentOrder(id);
+    	
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-
-        return new RedirectView("http://localhost:3000/payment/error");
-
+        return new RedirectView(CANCEL_URL);
     }
-    
-	/*@PostMapping("/cancel")
-	public void cancelPay(@RequestBody long id) {
-		paymentService.canclePaymentOrder(id);
-	}
-
-	 @GetMapping("/success")
-	 public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
-	        try {
-	            Payment payment = paymentService.executePayment(paymentId, payerId);
-	            System.out.println(payment.toJSON());
-	            if (payment.getState().equals("approved")) {
-	                return "https://localhost:8672/paypal/success.html";
-	            }
-	        } catch (PayPalRESTException e) {
-	         System.out.println(e.getMessage());
-	        }
-	        return "https://localhost:8672/paypal/error.html";
-	    }
-
-	 @PostMapping("/paymentOrderAmount")
-	 public Double getPaymentOrderPrice(@RequestBody String paymentOrderId) {
-		 return paymentService.getPaymentOrderPrice(paymentOrderId);
-	 }*/
 
 }

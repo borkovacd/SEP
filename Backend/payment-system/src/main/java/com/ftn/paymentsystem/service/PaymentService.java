@@ -84,17 +84,14 @@ public class PaymentService {
 		
 		payment = payment.create(apiContext);
 		
-		System.out.println("Prosao ovo ");
-		
 		paymentOrder.setPaymentId(payment.getId());
+		paymentOrder.setIntent(payment.getIntent());
 		paymentOrderRepository.save(paymentOrder);
 		
 		return payment;
 	}
 	
 	public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException {
-		
-		System.out.println("Usao u executePayment metodu!");
 		
 		PaymentOrder paymentOrder = paymentOrderRepository.findOneByPaymentId(paymentId);
 		SellerData seller = paymentOrder.getSeller();
@@ -103,6 +100,7 @@ public class PaymentService {
 		payment.setId(paymentId);
 		PaymentExecution paymentExecute = new PaymentExecution();
 		paymentExecute.setPayerId(payerId);
+		
 		
 		payment =  payment.execute(apiContext, paymentExecute);
 		
@@ -121,21 +119,7 @@ public class PaymentService {
 	}
 
 	
-	/*private APIContext getApiContext(String clientId, String clientSecret) throws PayPalRESTException {
-		
-		Map<String, String> configMap = new HashMap<>();
-		configMap.put("mode", mode);
-		
-		APIContext context = new APIContext(new OAuthTokenCredential
-				("AQBuI2NHwzAMuKe6ZL2gXha-jCyecSecVXLIxTxH7zjoyx3j49ZhOcTWmk_58rrcIV1aAlKH_ovmQEJd", 
-				 "EAFsKRFCIGcxckRJd4RLrZywJ0MnF46OO4W7MNpY7iGtcQcn7-BJS2_53-H3VgGiRU4jnUQjHoEyROXP",
-				 configMap).getAccessToken());
-		context.setConfigurationMap(configMap);
-		return context;
-	}
-	*/
-	
-	public void canclePaymentOrder(long id) {
+	public void cancelPaymentOrder(long id) {
 		PaymentOrder paymentOrder = paymentOrderRepository.findOneById(id);
 		paymentOrder.setPaymentStatus(PaymentStatus.CANCELED);
 		paymentOrderRepository.save(paymentOrder);

@@ -10,6 +10,7 @@ import Register from "./components/register.component";
 import Magazines from "./components/magazines.component";
 import SuccessPage from "./components/successPage.component";
 import ErrorPage from "./components/errorPage.component";
+import CancelPage from "./components/cancelPage.component";
 
 class App extends Component {
   constructor(props) {
@@ -83,6 +84,7 @@ class App extends Component {
             <Route exact path="/magazines" component={Magazines} />
             <Route exact path="/payment/success" component={SuccessPage} />
             <Route exact path="/payment/error" component={ErrorPage} />
+            <Route exact path="/payment/cancel" component={CancelPage} />
           </Switch>
         </div>
       </Router>
