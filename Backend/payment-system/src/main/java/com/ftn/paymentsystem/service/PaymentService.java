@@ -31,13 +31,12 @@ import com.paypal.base.rest.PayPalRESTException;
 @Service
 public class PaymentService {
 	
-	static String myCI = "AQBuI2NHwzAMuKe6ZL2gXha-jCyecSecVXLIxTxH7zjoyx3j49ZhOcTWmk_58rrcIV1aAlKH_ovmQEJd";
-	static String myCS = "EAFsKRFCIGcxckRJd4RLrZywJ0MnF46OO4W7MNpY7iGtcQcn7-BJS2_53-H3VgGiRU4jnUQjHoEyROXP";
-	private static String CLIENT_ID = myCI;
-	private static String CLIENT_SECRET = myCS;
+	private static final String SUCCESS_URL = "/payment/complete";
+	private static final String CANCEL_URL = "/payment/cancel";
 	
-	@Value("${paypal.mode}")
-	private String mode;
+	@Autowired
+    private APIContext apiContext;
+	
 	
 	@Autowired
 	SellerDataRepository sellerDataRepository;
@@ -72,13 +71,22 @@ public class PaymentService {
 		payment.setIntent("SALE");
 		payment.setPayer(payer);  
 		payment.setTransactions(transactions);
+		
+		String cancelUrl = "";
+        String successUrl = "";
+        successUrl = "https://localhost:9090/" + SUCCESS_URL + "/"+ paymentOrder.getId();
+        cancelUrl = "https://localhost:9090/" + CANCEL_URL + "/" + paymentOrder.getId();
 				
 		RedirectUrls redirectUrls = new RedirectUrls();
-		redirectUrls.setCancelUrl("http://localhost:3000/register");
-		redirectUrls.setReturnUrl("http://localhost:3000/register");
+		redirectUrls.setCancelUrl(cancelUrl);
+		redirectUrls.setReturnUrl(successUrl);
 		payment.setRedirectUrls(redirectUrls);
 		
-		payment = payment.create(getApiContext(seller.getPaypalClientId(), seller.getPaypalSecret()));
+		// payment = payment.create(getApiContext(seller.getPaypalClientId(), seller.getPaypalSecret()));
+		
+		payment = payment.create(apiContext);
+		
+		System.out.println("Prosao ovo ");
 		
 		paymentOrder.setPaymentId(payment.getId());
 		paymentOrderRepository.save(paymentOrder);
@@ -86,7 +94,9 @@ public class PaymentService {
 		return payment;
 	}
 	
-	public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException{
+	public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException {
+		
+		System.out.println("Usao u executePayment metodu!");
 		
 		PaymentOrder paymentOrder = paymentOrderRepository.findOneByPaymentId(paymentId);
 		SellerData seller = paymentOrder.getSeller();
@@ -96,7 +106,8 @@ public class PaymentService {
 		PaymentExecution paymentExecute = new PaymentExecution();
 		paymentExecute.setPayerId(payerId);
 		
-		payment = payment.execute(getApiContext(seller.getPaypalClientId(), seller.getPaypalSecret()), paymentExecute);
+		//payment = payment.execute(getApiContext(seller.getPaypalClientId(), seller.getPaypalSecret()), paymentExecute);
+		payment =  payment.execute(apiContext, paymentExecute);
 		
 		if(payment.getState().equals("approved")) {
 			paymentOrder.setPaymentStatus(PaymentStatus.PAID);
@@ -109,7 +120,7 @@ public class PaymentService {
 	}
 
 	
-	private APIContext getApiContext(String clientId, String clientSecret) throws PayPalRESTException {
+	/*private APIContext getApiContext(String clientId, String clientSecret) throws PayPalRESTException {
 		
 		Map<String, String> configMap = new HashMap<>();
 		configMap.put("mode", mode);
@@ -121,6 +132,7 @@ public class PaymentService {
 		context.setConfigurationMap(configMap);
 		return context;
 	}
+	*/
 	
 	public void canclePaymentOrder(long id) {
 		PaymentOrder paymentOrder = paymentOrderRepository.findOneById(id);
