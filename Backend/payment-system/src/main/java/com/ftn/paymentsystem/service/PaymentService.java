@@ -82,8 +82,6 @@ public class PaymentService {
 		redirectUrls.setReturnUrl(successUrl);
 		payment.setRedirectUrls(redirectUrls);
 		
-		// payment = payment.create(getApiContext(seller.getPaypalClientId(), seller.getPaypalSecret()));
-		
 		payment = payment.create(apiContext);
 		
 		System.out.println("Prosao ovo ");
@@ -106,7 +104,6 @@ public class PaymentService {
 		PaymentExecution paymentExecute = new PaymentExecution();
 		paymentExecute.setPayerId(payerId);
 		
-		//payment = payment.execute(getApiContext(seller.getPaypalClientId(), seller.getPaypalSecret()), paymentExecute);
 		payment =  payment.execute(apiContext, paymentExecute);
 		
 		if(payment.getState().equals("approved")) {
@@ -114,6 +111,10 @@ public class PaymentService {
 		} else {
 			paymentOrder.setPaymentStatus(PaymentStatus.FAILED);
 		}
+		
+		paymentOrder.setPayerId(payment.getPayer().getPayerInfo().getPayerId());
+		paymentOrder.setIntent(payment.getIntent());
+		
 		paymentOrderRepository.save(paymentOrder);
 		
 		return payment;

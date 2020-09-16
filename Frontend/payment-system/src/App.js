@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import "./App.css";
 
 import AuthService from "./services/auth.service";
@@ -13,7 +7,9 @@ import AuthService from "./services/auth.service";
 import Home from "./components/home.component";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
-import Profile from "./components/profile.component";
+import Magazines from "./components/magazines.component";
+import SuccessPage from "./components/successPage.component";
+import ErrorPage from "./components/errorPage.component";
 
 class App extends Component {
   constructor(props) {
@@ -39,6 +35,7 @@ class App extends Component {
 
   logOut() {
     AuthService.logout();
+    window.location.reload();
   }
 
   render() {
@@ -68,7 +65,7 @@ class App extends Component {
             {currentUser && (
               <React.Fragment>
                 <div className="btn-login">
-                  <Link to={"/profile"}>Profile</Link>
+                  <Link to={"/magazines"}>Magazines</Link>
                 </div>
                 <div className="btn-register" onClick={() => this.logOut()}>
                   <a>Logout</a>
@@ -83,7 +80,9 @@ class App extends Component {
             <Route exact path={["/", "/home"]} component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/magazines" component={Magazines} />
+            <Route exact path="/payment/success" component={SuccessPage} />
+            <Route exact path="/payment/error" component={ErrorPage} />
           </Switch>
         </div>
       </Router>

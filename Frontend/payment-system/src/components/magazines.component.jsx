@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import AuthService from "../services/auth.service";
+import PaymentService from "../services/payment.service";
+
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
-import AuthService from "../services/auth.service";
 
 const required = (value) => {
   if (!value) {
@@ -15,34 +16,29 @@ const required = (value) => {
   }
 };
 
-export default class Login extends Component {
+export default class Magazines extends Component {
   constructor(props) {
     super(props);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
+
+    this.handlePay = this.handlePay.bind(this);
+    this.onChangeMagazine = this.onChangeMagazine.bind(this);
 
     this.state = {
-      username: "",
-      password: "",
+      currentUser: AuthService.getCurrentUser(),
+      magazine: 0,
+      paymentType: "PAYPAL",
       loading: false,
       message: "",
     };
   }
 
-  onChangeUsername(e) {
+  onChangeMagazine(e) {
     this.setState({
-      username: e.target.value,
+      magazine: e.target.value,
     });
   }
 
-  onChangePassword(e) {
-    this.setState({
-      password: e.target.value,
-    });
-  }
-
-  handleLogin(e) {
+  handlePay(e) {
     e.preventDefault();
 
     this.setState({
@@ -53,10 +49,15 @@ export default class Login extends Component {
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      AuthService.login(this.state.username, this.state.password).then(
-        () => {
-          this.props.history.push("/magazines");
-          window.location.reload();
+      PaymentService.beginPaymentProcess(
+        this.state.magazine,
+        this.state.paymentType
+      ).then(
+        (response) => {
+          console.log(response.data);
+          window.location.assign(response.data);
+          //this.props.history.push("/");
+          //window.location.reload();
         },
         (error) => {
           const resMessage =
@@ -80,46 +81,54 @@ export default class Login extends Component {
   }
 
   render() {
-    return (
-      <div className="col-md-12 login-registration-page">
-        <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
+    const { currentUser } = this.state;
 
+    return (
+      <div className="login-registration-page">
+        <div className="card card-container">
           <Form
-            onSubmit={this.handleLogin}
+            onSubmit={this.handlePay}
             ref={(c) => {
               this.form = c;
             }}
           >
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="chooseMagazine">Magazine</label>
               <Input
-                type="text"
+                type="select"
                 className="form-control"
-                name="username"
-                value={this.state.username}
-                onChange={this.onChangeUsername}
+                name="chooseMagazine"
+                value={this.state.magazine}
+                onChange={this.onChangeMagazine}
                 validations={[required]}
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="magazine">Price</label>
               <Input
-                type="password"
+                type="number"
                 className="form-control"
-                name="password"
-                value={this.state.password}
-                onChange={this.onChangePassword}
+                name="magazine"
+                value={this.state.magazine}
+                onChange={this.onChangeMagazine}
                 validations={[required]}
               />
             </div>
 
             <div className="form-group">
+              <label htmlFor="paymentType">Payment Type</label>
+              <Input
+                type="paymentType"
+                className="form-control"
+                name="paymentType"
+                value={this.state.paymentType}
+                validations={[required]}
+              />
+            </div>
+
+            <div className="form-group">
+              <br />
               <button
                 className="btn btn-primary btn-block"
                 disabled={this.state.loading}
@@ -127,7 +136,8 @@ export default class Login extends Component {
                 {this.state.loading && (
                   <span className="spinner-border spinner-border-sm"></span>
                 )}
-                <span>Login</span>
+
+                <span>Proceed to payment</span>
               </button>
             </div>
 

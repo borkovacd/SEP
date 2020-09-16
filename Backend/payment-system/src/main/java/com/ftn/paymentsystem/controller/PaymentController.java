@@ -63,9 +63,9 @@ public class PaymentController {
                 requestHeaders.setContentType(MediaType.APPLICATION_JSON);
                 requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
-                RestTemplate restTemplate = new RestTemplate();
-                ResponseEntity<String> resp = restTemplate.getForEntity("http://localhost:8080/api/payment/complete/"+id, String.class);
-                return new RedirectView("http://localhost:3000");
+                //RestTemplate restTemplate = new RestTemplate();
+                //ResponseEntity<String> resp = restTemplate.getForEntity("http://localhost:8080/api/payment/complete/"+id, String.class);
+                return new RedirectView("http://localhost:3000/payment/success");
             }
         } catch (PayPalRESTException e) {
             System.out.print(e);
@@ -83,9 +83,7 @@ public class PaymentController {
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> resp = restTemplate.getForEntity("http://localhost:8080/api/payment/cancel/"+id, String.class);
-        return new RedirectView("http://localhost:3000");
+        return new RedirectView("http://localhost:3000/payment/error");
 
     }
     
