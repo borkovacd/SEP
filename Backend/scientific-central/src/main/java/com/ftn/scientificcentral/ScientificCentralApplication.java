@@ -43,8 +43,8 @@ public class ScientificCentralApplication {
 					.build();
 
 			requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
-			requestFactory.setReadTimeout(Integer.valueOf(10000));
-			requestFactory.setConnectTimeout(Integer.valueOf(10000));
+			requestFactory.setReadTimeout(Integer.valueOf(120000));
+			requestFactory.setConnectTimeout(Integer.valueOf(120000));
 			
 			restTemplate.setRequestFactory(requestFactory);
 		} catch (Exception exception) {

@@ -3,12 +3,10 @@ package com.ftn.paymentsystem.service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.ftn.paymentsystem.dto.PaymentRequestDTO;
@@ -24,7 +22,6 @@ import com.paypal.api.payments.PaymentExecution;
 import com.paypal.api.payments.RedirectUrls;
 import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 
 
@@ -72,6 +69,7 @@ public class PaymentService {
 		payment.setPayer(payer);  
 		payment.setTransactions(transactions);
 		
+		
 		String cancelUrl = "";
         String successUrl = "";
         successUrl = "https://localhost:9090/" + SUCCESS_URL + "/"+ paymentOrder.getId();
@@ -94,7 +92,6 @@ public class PaymentService {
 	public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException {
 		
 		PaymentOrder paymentOrder = paymentOrderRepository.findOneByPaymentId(paymentId);
-		SellerData seller = paymentOrder.getSeller();
 		
 		Payment payment = new Payment();
 		payment.setId(paymentId);
